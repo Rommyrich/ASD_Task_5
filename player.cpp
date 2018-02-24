@@ -3,7 +3,7 @@
 
 int randomInt(int  max_int) {
     srand(time(NULL));
-    return (rand() % max_int) + 1;
+    return (rand()%max_int) + 1;
 }
 
 void printInfo(List L) {
@@ -11,13 +11,17 @@ void printInfo(List L) {
     * PR : menampilkan informasi ID, nama, dan lokasi file
     */
 
-    address Q = first(L);
-    do {
-        cout<<"name    : "<<info(Q).name<<endl
-            <<"ID      : "<<info(Q).ID<<endl
-            <<"location: "<<info(Q).location<<endl;
-        Q = next(Q);
-    } while(Q!=first(L));
+    if(first(L)!=NULL){
+        address Q = first(L);
+        do {
+            cout<<"name    : "<<info(Q).name<<endl
+                <<"ID      : "<<info(Q).ID<<endl
+                <<"location: "<<info(Q).location<<endl;
+            Q = next(Q);
+        } while(Q!=first(L));
+    }else{
+        cout<<"empty list"<<endl;
+    }
     cout<<"==============================================="<<endl;
 }
 
@@ -40,9 +44,39 @@ void shuffleList(List &L) {
     * FS : isi (elemen) dari list teracak
     */
     //-------------your code here-------------
-
-        cout<<"UNDER MAIN TENIS"<<endl;
-
+    List L2;
+    createList(L2);
+    address T,P;
+    int maxx = 0;
+    int i = 0;
+    int num;
+    infotype x;
+    if(first(L)!=NULL){
+        address Q=first(L);
+        do{
+            maxx++;
+            Q=next(Q);
+        }while(Q!=first(L));
+        for(i=1;i<maxx;i++){
+            cout<<"Shufflin"<<"("<<i<<"/"<<maxx<<")"<<endl;
+            do{
+                x.ID=randomInt(maxx);
+                T=findElmByID(L,x);
+            }while(T==NULL && first(L)!=NULL);
+            if(T==first(L)){
+                deleteFirst(L,P);
+                insertFirst(L2,P);
+            }else if(T==last(L)){
+                deleteLast(L,P);
+                insertLast(L2,P);
+            }else{
+                deleteAfter(L,prev(T),P);
+                insertFirst(L2,P);
+            }
+        }
+        L=L2;
+        cout<<"Shuffled"<<endl;
+    }
     //----------------------------------------
 }
 
@@ -52,11 +86,17 @@ void sortListByID(List &L) {
     * FS : isi (elemen) dari list L terurut
     */
     //-------------your code here-------------
-
-        cout<<"UNDER MAIN TENIS"<<endl;
-
+    List L2;
+    createList(L2);
+    address P;
+    if(first(L)!=NULL){
+        do{
+            deleteFirst(L,P);
+            InsertAndSort(L2,P);
+        }while(first(L)!=NULL);
+    }
+    L=L2;
     //----------------------------------------
-
 }
 
 void playRepeat(List &L, int n) {
@@ -65,8 +105,13 @@ void playRepeat(List &L, int n) {
     *      dari lagu pertama hingga terakhir sebanyak n kali
     */
     //-------------your code here-------------
-
-        cout<<"UNDER MAIN TENIS"<<endl;
+    for(int i=0;i<n;i++){
+        address Q = first(L);
+        do{
+            playMusic(Q);
+            Q=next(Q);
+        }while(Q!=first(L));
+    }
 
     //----------------------------------------
 }
@@ -79,9 +124,46 @@ void deleteMusicByID(List &L, infotype x) {
     * FS : elemen dengan ID yang dicari dideallocate
     */
     //-------------your code here-------------
-
-        cout<<"UNDER MAIN TENIS"<<endl;
-
+    address P;
+    address Q = findElmByID(L,x);
+    if(first(L)!=NULL){
+        if(Q!=NULL){
+            if(Q==first(L)){
+                deleteFirst(L,P);
+            }else if(Q==last(L)){
+                deleteLast(L,P);
+            }else{
+                deleteAfter(L,prev(Q),P);
+            }
+        }else{
+            cout<<"Q N/A "<<endl;
+        }
+    }else{
+        cout<<"Empty list"<<endl;
+    }
     //----------------------------------------
+}
+
+void InsertAndSort(List &L, address P){
+
+    if(first(L)==NULL){
+        insertFirst(L,P);
+    }else if(L.first->info.ID >= P->info.ID){
+        insertFirst(L,P);
+    }else if(L.first->info.ID <= P->info.ID){
+        address Q = first(L);
+        address F = Q;
+        if(first(L)==last(L)){
+            insertLast(L,P);
+        }else{
+            do{
+                if(Q->info.ID <= P->info.ID){
+                    F=Q;
+                }
+                Q=next(Q);
+            }while(Q!=first(L));
+            insertAfter(L,F,P);
+        }
+    }
 
 }

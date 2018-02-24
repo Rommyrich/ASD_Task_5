@@ -7,3 +7,23 @@
 	<windows.h>
 	<iostream>
 
+1519465907 source:c:\users\asus x550v\documents\hithub v2\asd_task_5\list.cpp
+	"list.h"
+
+1519465861 c:\users\asus x550v\documents\hithub v2\asd_task_5\list.h
+	<string>
+	<windows.h>
+	<iostream>
+
+1519465861 source:c:\users\asus x550v\documents\hithub v2\asd_task_5\main.cpp
+	"player.h"
+	"list.h"
+	<conio.h>
+
+1519465859 c:\users\asus x550v\documents\hithub v2\asd_task_5\player.h
+	"list.h"
+
+1519466073 source:c:\users\asus x550v\documents\hithub v2\asd_task_5\player.cpp
+	"player.h"
+	<ctime>
+
